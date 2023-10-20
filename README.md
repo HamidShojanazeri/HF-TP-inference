@@ -2,7 +2,7 @@
 PyTorch Native Tensor Parallel for HuggingFace models inference
 
 
-### Run the inference TP(lized) model +Comple
+### Run the inference TP(lized) model +Compile
 
 Example of HF llama 7B
 
@@ -11,7 +11,6 @@ torchrun --nnodes 1 --nproc_per_node 2 llama-simple.py --model_name meta-llama/L
 
 ```
 ### Convert HF checkpoints to DTensor Checkpoints
-
 
 
 ```bash
