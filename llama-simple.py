@@ -37,7 +37,7 @@ def main (model_name: str = "meta-llama/Llama-2-7b-chat-hf",
             
     model_name = "meta-llama/Llama-2-7b-chat-hf"
     # with torch.device("meta"):
-    model = LlamaForCausalLM.from_pretrained(model_name, torch_dtype=torch.float16)
+    model = LlamaForCausalLM.from_pretrained(model_name, torch_dtype=torch.float16, use_cache=True)
     model.to(device)
     tokenizer = LlamaTokenizer.from_pretrained(model_name)
     # model = BetterTransformer.transform(model)
@@ -55,7 +55,7 @@ def main (model_name: str = "meta-llama/Llama-2-7b-chat-hf",
     dummy_input = tokenizer(dummy_input, return_tensors="pt").to(device)
     if compile:
         with CompileProfiler() as prof:
-            compiled_model = torch.compile(model, backend="inductor")
+            compiled_model = torch.compile(model, backend="inductor", mode="reduce-overhead")
             output = compiled_model.generate(
                         **dummy_input,
                         max_new_tokens=20,
